@@ -1,0 +1,20 @@
+.chips {
+  display: flex;
+  gap: 8px;
+}
+
+.chip {
+  padding: 6px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.chip--active {
+  background: #f8f8f8;
+  border-color: #375697;
+  color: #375697;
+}
