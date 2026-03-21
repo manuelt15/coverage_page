@@ -62,12 +62,7 @@ src/
 
 ## Data Source
 
-The application fetches platform data from:
-```
-https://api.getrollee.com/api/dashboard/v0.1/documentation/datasources
-```
-
-Response structure is handled in `src/hooks/useDatasources.js`.
+The application uses mock data defined in `src/hooks/useDatasources.js`. To use an API instead, replace the `MOCK_DATA` array with a fetch call inside a `useEffect` hook.
 
 ---
 
