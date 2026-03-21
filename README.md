@@ -91,9 +91,9 @@ npm run lint
 
 ---
 
-## API
+## Data Source
 
-Data is fetched from: `https://api.getrollee.com/api/dashboard/v0.1/documentation/datasources`
+The application uses mock data defined in `src/hooks/useDatasources.js`. This can be replaced with API calls when needed.
 
 ---
 
