@@ -16,8 +16,9 @@ A React + Vite application for displaying platform coverage information with fil
 
 ## Technologies
 
-- [React](https://reactjs.org/) with Vite
+- [React](https://reactjs.org/) 19 with Vite 7
 - CSS Modules for component styling
+- ESLint for code linting
 
 ---
 
@@ -27,9 +28,17 @@ A React + Vite application for displaying platform coverage information with fil
 src/
 ├── components/
 │   ├── SearchBar/
+│   │   ├── SearchBar.jsx
+│   │   └── SearchBar.css
 │   ├── DataTable/
+│   │   ├── DataTable.jsx
+│   │   └── DataTable.css
 │   ├── StatusChips/
+│   │   ├── StatusChips.jsx
+│   │   └── StatusChips.css
 │   └── Tabs/
+│       ├── Tabs.jsx
+│       └── Tabs.css
 ├── hooks/
 │   └── useDatasources.js
 ├── utils/
@@ -68,6 +77,12 @@ npm run dev
 npm run build
 ```
 
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
 ### Linting
 
 ```bash
@@ -79,3 +94,20 @@ npm run lint
 ## API
 
 Data is fetched from: `https://api.getrollee.com/api/dashboard/v0.1/documentation/datasources`
+
+---
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
+
+---
+
+## License
+
+Private - All rights reserved
