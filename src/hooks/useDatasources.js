@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const MOCK_DATA = [
   { id: 1, name: 'Uber', type: 'Platform', category: 'Gig Economy', status: 'Working', logoUrl: '/1.avif' },
@@ -38,7 +38,7 @@ export const useDatasources = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  useState(() => {
+  useEffect(() => {
     try {
       setData(MOCK_DATA)
     } catch (err) {
@@ -46,7 +46,7 @@ export const useDatasources = () => {
     } finally {
       setLoading(false)
     }
-  })
+  }, [])
 
   return { data, loading, error }
 }
