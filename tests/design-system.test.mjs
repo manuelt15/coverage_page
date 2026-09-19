@@ -24,7 +24,7 @@ test('Tokens: los componentes no escriben colores, radios ni sombras literales',
                 assert.ok(/var\(--radius-/.test(value) || value === '0', `${file}: radio literal ${value}`)
             }
             if (prop === 'box-shadow') {
-                assert.ok(/var\(--shadow-/.test(value) || value === 'none', `${file}: sombra literal ${value}`)
+                assert.ok(/var\(--(shadow-|focus-ring)/.test(value) || value === 'none', `${file}: sombra literal ${value}`)
             }
         })
     }
@@ -42,7 +42,7 @@ test('Tokens: la escala del sistema está completa en tokens.css', () => {
         '--ink', '--ink-secondary', '--ink-muted', '--ink-faint',
         '--accent-green', '--accent-orange', '--accent-sky', '--accent-purple', '--accent-pink', '--accent-teal',
         '--radius-xs', '--radius-sm', '--radius-md', '--radius-lg', '--radius-xl', '--radius-full',
-        '--shadow-1', '--shadow-2', '--container',
+        '--shadow-1', '--shadow-2', '--focus-ring', '--container',
     ]) {
         assert.ok(declared.has(token), `falta el token ${token}`)
     }
@@ -77,6 +77,12 @@ test('Cero emojis en el código y en el HTML', () => {
         const match = read(file).match(/\p{Extended_Pictographic}/u)
         assert.equal(match, null, `${file}: emoji encontrado (${match?.[0]})`)
     }
+})
+
+test('El aviso de demo sigue en pie', () => {
+    const jsx = read('src/App.jsx')
+    assert.match(jsx, /hero-note/, 'falta el aviso de que los datos no son reales')
+    assert.match(jsx, /sample data|Demo project/i, 'el aviso debe decir que el proyecto es de prueba')
 })
 
 test('La pestaña del navegador no arrastra el defecto de Vite', () => {

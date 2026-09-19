@@ -54,7 +54,7 @@
 .hero-title {
   font: var(--text-display-1);
   letter-spacing: var(--track-display-1);
-  max-width: 16ch;
+  max-width: 20ch;
 }
 
 .hero-sub {
@@ -81,6 +81,15 @@
   font: var(--text-heading-2);
   letter-spacing: var(--track-heading-2);
   margin-top: var(--space-xxs);
+}
+
+.hero-note {
+  font: var(--text-caption);
+  color: var(--on-primary-faint);
+  border-top: 1px solid var(--on-primary-faint);
+  padding-top: var(--space-sm);
+  margin-top: var(--space-xs);
+  max-width: 54ch;
 }
 
 .app-main {

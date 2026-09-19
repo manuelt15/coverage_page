@@ -6,6 +6,7 @@ const App = () => {
   const { data } = useDatasources()
 
   const working = data.filter(d => d.status === 'Working').length
+  const coming = data.length - working
   const categories = new Set(data.map(d => d.category)).size
 
   return (
@@ -21,10 +22,11 @@ const App = () => {
       {/* Único momento oscuro de la página: el sistema reserva la banda índigo para el hero. */}
       <section className="hero-band">
         <div className="hero-inner">
-          <p className="badge-pill">Data sources</p>
-          <h1 className="hero-title">Every platform we read from</h1>
+          <p className="badge-pill">Live coverage</p>
+          <h1 className="hero-title">Check it here before you build against it</h1>
           <p className="hero-sub">
-            What we can pull today across gig economy, payments, payroll and tax, and what is on the way.
+            Every data source we connect to, and the honest state of each one. No guessing, no
+            support ticket.
           </p>
           <dl className="hero-stats">
             <div>
@@ -36,10 +38,19 @@ const App = () => {
               <dd>{working}</dd>
             </div>
             <div>
+              <dt>Coming soon</dt>
+              <dd>{coming}</dd>
+            </div>
+            <div>
               <dt>Categories</dt>
               <dd>{categories}</dd>
             </div>
           </dl>
+
+          {/* La cabecera promete cobertura en vivo: el aviso va aquí, junto a la promesa. */}
+          <p className="hero-note">
+            Demo project. The platforms below are sample data, not a real coverage list.
+          </p>
         </div>
       </section>
 

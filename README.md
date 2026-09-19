@@ -3,6 +3,9 @@
 A React + Vite page listing which data-source platforms we can read from today and which are on
 the way, with search, category and status filters, and sortable columns.
 
+> **This is a demo.** The 30 platforms are sample data, not a real coverage list. The page says
+> so in the hero, and there is a test that keeps that notice in place.
+
 Visual language adapted from Notion's marketing system. The full token reference is in
 [DESIGN.md](DESIGN.md).
 
