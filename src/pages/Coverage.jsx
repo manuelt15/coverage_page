@@ -7,13 +7,14 @@ import StatusChips from '../components/StatusChips/StatusChips'
 import DataTable from '../components/DataTable/DataTable'
 
 const CATEGORIES = ['All Platforms', 'Gig Economy', 'Payments', 'Payroll & HRIS', 'Tax Portals', 'Utilities']
+const STATUSES = ['Working', 'Coming soon']
 
 const Coverage = () => {
   const { data, loading, error } = useDatasources()
 
   const [activeTab, setActiveTab] = useState('All Platforms')
   const [search, setSearch] = useState('')
-  const [activeStatuses, setActiveStatuses] = useState(['Working', 'Coming soon'])
+  const [activeStatuses, setActiveStatuses] = useState(STATUSES)
   const [sortCol, setSortCol] = useState(null)
   const [sortDir, setSortDir] = useState('asc')
 
@@ -47,38 +48,31 @@ const Coverage = () => {
       result = result.filter(d => d.category === activeTab)
     }
     if (search.trim()) {
-      result = result.filter(d => d.name.toLowerCase().includes(search.toLowerCase()))
+      result = result.filter(d => d.name.toLowerCase().includes(search.trim().toLowerCase()))
     }
-    if (activeStatuses.length < 2) {
-      result = result.filter(d => activeStatuses.includes(d.status))
-    }
+    result = result.filter(d => activeStatuses.includes(d.status))
 
     return sortItems(result, sortCol, sortDir)
   }, [data, activeTab, search, activeStatuses, sortCol, sortDir])
 
   return (
     <main className="app-main">
-      <Tabs
-        tabs={CATEGORIES}
-        active={activeTab}
-        counts={tabCounts}
-        onSelect={setActiveTab}
-      />
+      <div className="toolbar">
+        <Tabs tabs={CATEGORIES} active={activeTab} counts={tabCounts} onSelect={setActiveTab} />
 
-      <div className="controls">
-        <SearchBar value={search} onChange={setSearch} />
-        <StatusChips active={activeStatuses} onToggle={toggleStatus} />
+        <div className="toolbar-row">
+          <SearchBar value={search} onChange={setSearch} />
+          <StatusChips active={activeStatuses} onToggle={toggleStatus} />
+          <p className="result-count">
+            {filtered.length} of {data.length}
+          </p>
+        </div>
       </div>
 
-      {loading && <p className="state-msg">Loading...</p>}
-      {error && <p className="state-msg error">Error: {error}</p>}
+      {loading && <p className="state-msg">Loading platforms...</p>}
+      {error && <p className="state-msg error">Could not load platforms: {error}</p>}
       {!loading && !error && (
-        <DataTable
-          items={filtered}
-          sortCol={sortCol}
-          sortDir={sortDir}
-          onSort={handleSort}
-        />
+        <DataTable items={filtered} sortCol={sortCol} sortDir={sortDir} onSort={handleSort} />
       )}
     </main>
   )

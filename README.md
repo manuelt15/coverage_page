@@ -1,24 +1,48 @@
 # Coverage Page
 
-A React + Vite application for displaying platform coverage information with filtering and sorting capabilities.
+A React + Vite page listing which data-source platforms we can read from today and which are on
+the way, with search, category and status filters, and sortable columns.
+
+Visual language adapted from Notion's marketing system. The full token reference is in
+[DESIGN.md](DESIGN.md).
 
 ---
 
 ## Features
 
-- **Platform Listing**: View all available platforms in a data table
-- **Category Filtering**: Filter by categories (All Platforms, Gig Economy, Payments, Payroll & HRIS, Tax Portals, Utilities)
-- **Status Filtering**: Toggle between Working and Coming soon statuses
-- **Search**: Search platforms by name
-- **Sorting**: Sort table by platform name, type, or status
+- **Platform table**: platform, type, category and status, sortable by any column
+- **Category filter**: pills with live counts across Gig Economy, Payments, Payroll & HRIS, Tax Portals and Utilities
+- **Status filter**: toggle Working and Coming soon
+- **Search**: filter by platform name
+- **Brand logos**: a three-step cascade, described below
+- **Responsive**: below 600px every row reflows into a stacked card, so the table never scrolls sideways
 
 ---
 
-## Technologies
+## Tech Stack
 
-- [React](https://reactjs.org/) 19 with Vite 7
-- CSS Modules for component styling
-- ESLint for code linting
+- [React](https://react.dev/) 19 with [Vite](https://vite.dev/) 7
+- Plain CSS with custom properties, one stylesheet per component
+- [simple-icons](https://simpleicons.org/) for brand marks
+- [Inter](https://rsms.me/inter/) from Google Fonts
+- `node:test` for the test suite, no framework
+- ESLint 9
+
+---
+
+## Brand logos
+
+`BrandLogo` resolves a platform mark in three steps:
+
+1. **simple-icons**, imported one icon at a time so the bundle only carries what is used. The
+   catalogue covers 16 of the 30 platforms, in their official brand colour.
+2. **Domain favicon** for the rest, from the `domain` field on each record. This is the only
+   third-party request the page makes at runtime.
+3. **Monogram** on a sticker-palette tile, picked deterministically from the name, if the
+   favicon fails to load.
+
+Salesforce, Workday, Comcast, T-Mobile, Grubhub, TaskRabbit, TurboTax, H&R Block, Rippling,
+Zenefits, IRS and PG&E are not in the simple-icons catalogue and resolve at step 2.
 
 ---
 
@@ -27,73 +51,36 @@ A React + Vite application for displaying platform coverage information with fil
 ```
 src/
 ├── components/
+│   ├── BrandLogo/       # icon / favicon / monogram cascade
+│   ├── DataTable/       # the table card and its mobile reflow
 │   ├── SearchBar/
-│   │   ├── SearchBar.jsx
-│   │   └── SearchBar.css
-│   ├── DataTable/
-│   │   ├── DataTable.jsx
-│   │   └── DataTable.css
 │   ├── StatusChips/
-│   │   ├── StatusChips.jsx
-│   │   └── StatusChips.css
-│   └── Tabs/
-│       ├── Tabs.jsx
-│       └── Tabs.css
+│   └── Tabs/            # category pills
 ├── hooks/
 │   └── useDatasources.js
-├── utils/
-│   └── sort.js
 ├── pages/
 │   └── Coverage.jsx
-├── App.jsx
+├── styles/
+│   └── tokens.css       # the design system: every colour, size, radius and shadow
+├── utils/
+│   └── sort.js
+├── App.jsx              # top bar and hero band
 ├── App.css
-├── main.jsx
-└── index.css
+├── index.css            # reset and base, imports the tokens
+└── main.jsx
+tests/                   # node:test, no framework
 ```
 
 ---
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js 18+
-
-### Installation
+Node 18+.
 
 ```bash
 npm install
-```
-
-### Development
-
-```bash
 npm run dev
 ```
-
-### Build
-
-```bash
-npm run build
-```
-
-### Preview Production Build
-
-```bash
-npm run preview
-```
-
-### Linting
-
-```bash
-npm run lint
-```
-
----
-
-## Data Source
-
-The application uses mock data defined in `src/hooks/useDatasources.js`. This can be replaced with API calls when needed.
 
 ---
 
@@ -101,10 +88,36 @@ The application uses mock data defined in `src/hooks/useDatasources.js`. This ca
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
+| `npm run dev` | Start the dev server |
+| `npm run build` | Build to `dist/` |
+| `npm run preview` | Serve the production build |
 | `npm run lint` | Run ESLint |
+| `npm test` | Run the test suite |
+
+---
+
+## Tests
+
+`npm test` runs `node --test tests/` with no test framework. The suite reads the source rather
+than a browser, so it locks contracts that are easy to break by hand:
+
+- no component writes a literal colour, radius or shadow; everything resolves to a token
+- the structural blue never paints a decorative background
+- no emojis anywhere in the source or the HTML
+- the sort icon renders only on the column actually sorting, and `aria-sort` uses the values the
+  spec accepts
+- every table cell carries the `data-label` its mobile card layout depends on
+- nothing is measured in artificial `vh` units or pinned with `position: fixed`
+
+It is not a substitute for looking at the page.
+
+---
+
+## Data Source
+
+Mock data lives in `src/hooks/useDatasources.js`: 30 records with `name`, `type`, `category`,
+`status` and `domain`. Replace the array with a fetch inside the existing `useEffect` when there
+is an API. Keep `domain`, the logo cascade depends on it.
 
 ---
 

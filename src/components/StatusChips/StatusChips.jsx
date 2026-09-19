@@ -1,17 +1,19 @@
 import './StatusChips.css'
 
-const STATUSES = ['Working', 'Coming soon']
+const STATUSES = [['Working', 'working'], ['Coming soon', 'soon']]
 
 const StatusChips = ({ active, onToggle }) => (
   <div className="chips" role="group" aria-label="Filter by status">
-    {STATUSES.map(s => (
+    {STATUSES.map(([status, key]) => (
       <button
-        key={s}
-        className={`chip ${active.includes(s) ? 'chip--active' : ''}`}
-        onClick={() => onToggle(s)}
-        aria-pressed={active.includes(s)}
+        key={status}
+        type="button"
+        className={`chip ${active.includes(status) ? 'chip--active' : ''}`}
+        onClick={() => onToggle(status)}
+        aria-pressed={active.includes(status)}
       >
-        {s}
+        <span className={`chip-dot chip-dot--${key}`} />
+        {status}
       </button>
     ))}
   </div>

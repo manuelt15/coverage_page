@@ -1,0 +1,104 @@
+/* Sistema de diseño adaptado del lenguaje de Notion. Ver DESIGN.md.
+   Regla dura: ningún componente escribe un color, radio o sombra literal. */
+
+:root {
+  /* Acento estructural. El azul es el único color que pinta una acción. */
+  --primary: #0075de;
+  --primary-active: #005bab;
+  --on-primary: #ffffff;
+  --on-primary-soft: rgba(255, 255, 255, 0.72);
+  --on-primary-faint: rgba(255, 255, 255, 0.6);
+  --secondary: #213183;
+
+  /* Paleta sticker: decoración y estado, nunca estructura ni CTA. */
+  --accent-sky: #62aef0;
+  --accent-purple: #d6b6f6;
+  --accent-purple-deep: #391c57;
+  --accent-pink: #ff64c8;
+  --accent-orange: #dd5b00;
+  --accent-orange-deep: #793400;
+  --accent-teal: #2a9d99;
+  --accent-green: #1aae39;
+  --accent-brown: #523410;
+
+  /* Estado: el md no expone rampa semántica propia, el estado lo lleva la paleta
+     sticker. Se tiñe para el fondo y se oscurece para el texto, que #1aae39 puro
+     sobre blanco no llega a contraste de lectura. */
+  --status-working-fill: color-mix(in srgb, var(--accent-green) 12%, var(--surface));
+  --status-working-ink: color-mix(in srgb, var(--accent-green) 72%, black);
+  --status-soon-fill: color-mix(in srgb, var(--accent-orange) 12%, var(--surface));
+  --status-soon-ink: var(--accent-orange-deep);
+
+  /* Superficies: lienzo cálido de fondo, blanco para tarjetas y campos. */
+  --canvas: #ffffff;
+  --canvas-soft: #f6f5f4;
+  --surface: #ffffff;
+  --hairline: #e6e6e6;
+
+  /* Texto */
+  --ink: rgba(0, 0, 0, 0.95);
+  --ink-secondary: #31302e;
+  --ink-muted: #615d59;
+  --ink-faint: #a39e98;
+
+  /* Tipografía: una sola familia, el peso hace la jerarquía.
+     El tracking negativo es explícito: Inter sin él lee más suelto que NotionInter. */
+  --font-sans: "Inter", -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  --text-display-1: 700 64px/1 var(--font-sans);
+  --track-display-1: -2.125px;
+  --text-display-2: 700 54px/1.04 var(--font-sans);
+  --track-display-2: -1.875px;
+  --text-heading-1: 700 40px/1.1 var(--font-sans);
+  --track-heading-1: -1px;
+  --text-heading-2: 700 26px/1.23 var(--font-sans);
+  --track-heading-2: -0.625px;
+  --text-heading-3: 700 22px/1.27 var(--font-sans);
+  --track-heading-3: -0.25px;
+  --text-title: 600 20px/1.4 var(--font-sans);
+  --track-title: -0.125px;
+  --text-body-md: 400 16px/1.5 var(--font-sans);
+  --text-body-sm: 400 15px/1.33 var(--font-sans);
+  --text-button: 500 16px/1.5 var(--font-sans);
+  --text-caption: 400 14px/1.43 var(--font-sans);
+  --text-eyebrow: 600 12px/1.33 var(--font-sans);
+  --track-eyebrow: 0.125px;
+
+  /* Espaciado, base 8 */
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 28px;
+  --space-xxl: 32px;
+
+  /* Formas: píldora para CTA de marketing, 8px para utilidad, 4px para campos. */
+  --radius-xs: 4px;
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Elevación por capas casi transparentes, nunca una sombra dura. */
+  --shadow-1:
+    rgba(0, 0, 0, 0.01) 0 0.175px 1.041px,
+    rgba(0, 0, 0, 0.02) 0 0.8px 2.925px,
+    rgba(0, 0, 0, 0.027) 0 2.025px 7.847px,
+    rgba(0, 0, 0, 0.04) 0 4px 18px;
+  --shadow-2:
+    rgba(0, 0, 0, 0.01) 0 0.5px 2px,
+    rgba(0, 0, 0, 0.02) 0 2px 6px,
+    rgba(0, 0, 0, 0.03) 0 6px 16px,
+    rgba(0, 0, 0, 0.04) 0 12px 30px,
+    rgba(0, 0, 0, 0.05) 0 23px 52px;
+
+  /* Movimiento. Las curvas de serie de CSS son flojas; estas rematan.
+     ease-in para UI, nunca: arranca lento justo cuando se está mirando. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* Contenedor */
+  --container: 1080px;
+}

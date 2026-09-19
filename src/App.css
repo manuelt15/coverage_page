@@ -1,61 +1,164 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* Cascarón: barra blanca, una sola banda índigo y el resto sobre lienzo cálido. */
 
-body {
-  font-family: ui-monospace, "Liberation Mono", "Courier New", monospace;
-  color: #1a1a1a;
-  background: #fff;
-}
-
-.app-header {
+.nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--canvas);
+  border-bottom: 1px solid var(--hairline);
+  padding: var(--space-sm) var(--space-lg);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 16px 32px;
-  border-bottom: 1px solid #e5e7eb;
+  justify-content: space-between;
+  gap: var(--space-md);
 }
 
-.logo {
-  font-weight: 700;
-  font-size: 18px;
-  color: #375697;
+.nav-mark {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font: var(--text-title);
+  letter-spacing: var(--track-title);
+  color: var(--ink);
 }
 
-.coverage-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #375697;
+.nav-meta {
+  font: var(--text-body-sm);
+  color: var(--ink-muted);
 }
 
-.coverage-label small {
-  font-weight: 400;
-  color: #6b7280;
-  margin-left: 6px;
+.hero-band {
+  background: var(--secondary);
+  color: var(--on-primary);
+  padding: 72px var(--space-lg);
+}
+
+.hero-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.badge-pill {
+  background: var(--surface);
+  color: var(--primary);
+  font: var(--text-eyebrow);
+  letter-spacing: var(--track-eyebrow);
+  border-radius: var(--radius-full);
+  padding: var(--space-xxs) var(--space-xs);
+}
+
+.hero-title {
+  font: var(--text-display-1);
+  letter-spacing: var(--track-display-1);
+  max-width: 16ch;
+}
+
+.hero-sub {
+  font: var(--text-body-md);
+  color: var(--on-primary-soft);
+  max-width: 54ch;
+}
+
+.hero-stats {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--space-xxl);
+  margin-top: var(--space-sm);
+}
+
+.hero-stats dt {
+  font: var(--text-eyebrow);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--on-primary-faint);
+}
+
+.hero-stats dd {
+  font: var(--text-heading-2);
+  letter-spacing: var(--track-heading-2);
+  margin-top: var(--space-xxs);
 }
 
 .app-main {
-  max-width: 900px;
+  max-width: var(--container);
   margin: 0 auto;
-  padding: 24px 16px;
-}
-
-.controls {
+  padding: var(--space-xxl) var(--space-lg) 72px;
   display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
-  align-items: center;
+  flex-flow: column nowrap;
+  gap: var(--space-lg);
 }
 
 .state-msg {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: 72px var(--space-lg);
   text-align: center;
-  padding: 48px;
-  color: #6b7280;
-  font-size: 14px;
+  font: var(--text-body-sm);
+  color: var(--ink-muted);
 }
 
 .state-msg.error {
-  color: #dc2626;
+  color: var(--accent-orange-deep);
+}
+
+@media (max-width: 840px) {
+  .hero-band {
+    padding: 56px var(--space-md);
+  }
+  .hero-title {
+    font: var(--text-display-2);
+    letter-spacing: var(--track-display-2);
+  }
+  .app-main {
+    padding: var(--space-lg) var(--space-md) 56px;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav-bar {
+    padding: var(--space-sm) var(--space-md);
+  }
+  .hero-band {
+    padding: 40px var(--space-md);
+  }
+  .hero-title {
+    font: var(--text-heading-1);
+    letter-spacing: var(--track-heading-1);
+    max-width: none;
+  }
+  .hero-stats {
+    gap: var(--space-lg);
+  }
+}
+
+/* Franja de filtros: categorías arriba, buscador, estado y recuento debajo. */
+.toolbar {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: var(--space-md);
+}
+
+.toolbar-row {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.result-count {
+  margin-left: auto;
+  font: var(--text-caption);
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .result-count {
+    margin-left: 0;
+  }
 }
